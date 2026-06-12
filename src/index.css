@@ -1,0 +1,79 @@
+@import "tailwindcss";
+
+/* ---- Design tokens (Tailwind v4 @theme) ----
+   Editorial palette: warm paper, deep ink, burnt-flame accent.
+   Deliberately distinct from the volt/dark project brands. */
+@theme {
+  --font-sans: "Plus Jakarta Sans", ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+
+  --color-paper: #f5f1e8;
+  --color-cream: #fbf9f3;
+
+  --color-flame-100: #fbe3d8;
+  --color-flame-500: #e4572e;
+  --color-flame-600: #c74722;
+  --color-flame-700: #a23a1c;
+
+  --color-ink-300: #b5ada0;
+  --color-ink-500: #6f675c;
+  --color-ink-700: #3a342c;
+  --color-ink-900: #1c1813;
+  --color-ink-950: #131009;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: var(--color-paper);
+  color: var(--color-ink-900);
+}
+
+::selection {
+  background: var(--color-flame-500);
+  color: var(--color-cream);
+}
+
+/* Fraunces shines at high optical sizes */
+.font-display {
+  font-optical-sizing: auto;
+}
+
+/* Thin editorial rules */
+.rule {
+  border-color: color-mix(in srgb, var(--color-ink-900) 12%, transparent);
+}
+
+/* Scroll reveal */
+.reveal {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 28s linear infinite; }
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
